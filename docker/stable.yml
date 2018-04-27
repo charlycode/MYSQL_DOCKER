@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  laminas:
+    external:
+      name: traefik_proxy
+
+services:
+  mysql:
+    image: charlycode/mysql:5.6
+    container_name: mysql_laminas
+    user: mysql
+    env_file:
+      - ../.env
+    volumes:
+      - /mysql:/var/lib/mysql
+      - /usr/share/zoneinfo/America/Monterrey:/etc/localtime:ro
+    ports:
+      - "3306:3306"
+    networks:
+      - laminas
